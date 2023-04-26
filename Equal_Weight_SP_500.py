@@ -37,12 +37,13 @@ print('Stock Symbol Data')
 print(latest_multisymbol_quotes)
 
 #Parsing out data
-print('parsed data')
+print('parsed data:')
 print(latest_multisymbol_quotes['NVDA'].ask_price)
 
 #Adding our stock data to a pandas dataframe
 my_columns = ['Ticker','Stock','Market Capitalization','Number of Shares to Buy']
-final_dataframe = pd.DataFrame(columns=my_columns)
+final_dataframe = pd.DataFrame([[0,0,0,0]],columns=my_columns)
+print('Dataframe: ')
 print(final_dataframe)
 
 #Make our first API call
