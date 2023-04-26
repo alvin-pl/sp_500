@@ -28,7 +28,7 @@ stocks = pd.read_csv('/Users/alvinpl/Desktop/sp_500/sp_500_stocks.csv')
 alpaca = api.REST(API_KEY, API_SECRET, BASE_URL)
 
 
-#Access stock symbol and price 
+#ACCESS stock symbol and price 
 stock_client = StockHistoricalDataClient(API_KEY, API_SECRET)
 
 multisymbol_request_params = StockLatestQuoteRequest(symbol_or_symbols=["NVDA"]) #"NVDA", "UBER"
@@ -36,15 +36,16 @@ latest_multisymbol_quotes = stock_client.get_stock_latest_quote(multisymbol_requ
 print('Stock Symbol Data')
 print(latest_multisymbol_quotes)
 
-#Parsing out data
+#PARSING out data
 print('parsed data:')
 print(latest_multisymbol_quotes['NVDA'].ask_price)
 
-#Adding our stock data to a pandas dataframe
+#ADDING our stock data to a pandas dataframe
 my_columns = ['Ticker','Stock','Market Capitalization','Number of Shares to Buy']
 final_dataframe = pd.DataFrame([[0,0,0,0]],columns=my_columns)
 print('Dataframe: ')
 print(final_dataframe)
+
 
 #Make our first API call
 #authenticate trading client
