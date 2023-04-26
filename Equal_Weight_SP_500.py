@@ -27,24 +27,36 @@ stocks = pd.read_csv('/Users/alvinpl/Desktop/sp_500/sp_500_stocks.csv')
 #acquire API token
 alpaca = api.REST(API_KEY, API_SECRET, BASE_URL)
 
+
+#Access stock symbol and price 
+stock_client = StockHistoricalDataClient(API_KEY, API_SECRET)
+
+multisymbol_request_params = StockLatestQuoteRequest(symbol_or_symbols=["NVDA"]) #"NVDA", "UBER"
+latest_multisymbol_quotes = stock_client.get_stock_latest_quote(multisymbol_request_params)
+print('Stock Symbol Data')
+print(latest_multisymbol_quotes)
+
+#Parsing out data
+print('parsed data')
+print(latest_multisymbol_quotes['NVDA'].ask_price)
+
+#Adding our stock data to a pandas dataframe
+my_columns = ['Ticker','Stock','Market Capitalization','Number of Shares to Buy']
+final_dataframe = pd.DataFrame(columns=my_columns)
+print(final_dataframe)
+
 #Make our first API call
 #authenticate trading client
 trading_client = TradingClient(API_KEY, API_SECRET, paper=True)
-
-stock_client = StockHistoricalDataClient(API_KEY, API_SECRET)
-
-# multisymbol_request_params = StockLatestQuoteRequest(symbol_or_symbols=["AMZN", "NVDA", "UBER"])
-# latest_multisymbol_quotes = stock_client.get_stock_latest_quote(multisymbol_request_params)
-# print(latest_multisymbol_quotes)
-
 #Using web-socket API to stream real time data
-wss_client = StockDataStream(API_KEY, API_SECRET)
+# wss_client = StockDataStream(API_KEY, API_SECRET)
 
-async def quote_data_handler(data):
-    print(data)
+# async def quote_data_handler(data):
+#     #print trade data, get the size and price
+#     print(data)
     
-wss_client.subscribe_trades(quote_data_handler, 'AMZN')
-wss_client.run()
+# wss_client.subscribe_trades(quote_data_handler, 'AMZN')
+# wss_client.run()
 
 
 
